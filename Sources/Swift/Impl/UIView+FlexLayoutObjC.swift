@@ -10,14 +10,14 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 //
-// Created by Luc Dion on 2017-07-17. 
+// Created by Luc Dion on 2017-07-17.
 
 import UIKit
 
 private var flexLayoutAssociatedObjectHandle = 72_399_923
 
-extension UIView {
-    public var flex: Flex {
+@objc public extension UIView {
+    var flex: Flex {
         if let flex = objc_getAssociatedObject(self, &flexLayoutAssociatedObjectHandle) as? Flex {
             return flex
         } else {
@@ -27,7 +27,7 @@ extension UIView {
         }
     }
 
-    public var isFlexEnabled: Bool {
+    var isFlexEnabled: Bool {
         (objc_getAssociatedObject(self, &flexLayoutAssociatedObjectHandle) as? Flex) != nil
     }
 }

@@ -19,8 +19,12 @@
 
 import UIKit
 
-public struct FPercent {
+@objc public class FPercent: NSObject {
     let value: CGFloat
+    
+    @objc init(value: CGFloat) {
+        self.value = value
+    }
 }
 
 postfix operator %

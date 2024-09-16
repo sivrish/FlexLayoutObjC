@@ -1,14 +1,14 @@
 
 Pod::Spec.new do |spec|
-  spec.name         = "FlexLayout"
+  spec.name         = "FlexLayoutObjC"
   spec.version      = "2.0.10"
-  spec.summary      = "FlexLayout"
-  spec.homepage     = "https://github.com/lucdion/FlexLayout.git"
+  spec.summary      = "FlexLayoutObjC"
+  spec.homepage     = "https://github.com/sivrish/FlexLayoutObjC.git"
   spec.license      = "MIT license"
-  spec.author       = { "Luc Dion" => "luc_dion@yahoo.com" }
+  spec.author       = { "Sivrish Thangamani" => "sivrishthangamani@gmail.com" }
 
   spec.platform     = :ios, "12.0"
-  spec.source       = { :git => "https://github.com/lucdion/FlexLayout.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/sivrish/FlexLayoutObjC.git", :tag => "#{spec.version}" }
   spec.source_files = "Sources/**/*.{swift,h,m,mm,cpp,c}"
   spec.public_header_files = "Sources/yoga/include/yoga/*.h", "Sources/YogaKit/include/YogaKit/*.h"
   spec.libraries    = 'c++'

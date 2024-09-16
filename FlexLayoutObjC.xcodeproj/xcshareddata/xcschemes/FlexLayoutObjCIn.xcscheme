@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "24DA37591EF843C500D1AB2F"
-               BuildableName = "FlexLayout.framework"
-               BlueprintName = "FlexLayout"
-               ReferencedContainer = "container:FlexLayout.xcodeproj">
+               BuildableName = "FlexLayoutObjC.framework"
+               BlueprintName = "FlexLayoutObjC"
+               ReferencedContainer = "container:FlexLayoutObjC.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,9 +31,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "24DA37591EF843C500D1AB2F"
-            BuildableName = "FlexLayout.framework"
-            BlueprintName = "FlexLayout"
-            ReferencedContainer = "container:FlexLayout.xcodeproj">
+            BuildableName = "FlexLayoutObjC.framework"
+            BlueprintName = "FlexLayoutObjC"
+            ReferencedContainer = "container:FlexLayoutObjC.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -44,7 +44,7 @@
                BlueprintIdentifier = "24DA37621EF843C500D1AB2F"
                BuildableName = "FlexLayoutTests.xctest"
                BlueprintName = "FlexLayoutTests"
-               ReferencedContainer = "container:FlexLayout.xcodeproj">
+               ReferencedContainer = "container:FlexLayoutObjC.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "24DA37591EF843C500D1AB2F"
-            BuildableName = "FlexLayout.framework"
-            BlueprintName = "FlexLayout"
-            ReferencedContainer = "container:FlexLayout.xcodeproj">
+            BuildableName = "FlexLayoutObjC.framework"
+            BlueprintName = "FlexLayoutObjC"
+            ReferencedContainer = "container:FlexLayoutObjC.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>
@@ -79,9 +79,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "24DA37591EF843C500D1AB2F"
-            BuildableName = "FlexLayout.framework"
-            BlueprintName = "FlexLayout"
-            ReferencedContainer = "container:FlexLayout.xcodeproj">
+            BuildableName = "FlexLayoutObjC.framework"
+            BlueprintName = "FlexLayoutObjC"
+            ReferencedContainer = "container:FlexLayoutObjC.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

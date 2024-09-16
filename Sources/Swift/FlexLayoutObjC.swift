@@ -22,11 +22,11 @@ import FlexLayoutYogaKit
  FlexLayout interface.
  
  The interface is accessible from any UIView class instance:
- ``` 
+ ```
     label.flex.margin(10)
  ```
  */
-public final class Flex {
+@objc public final class Flex: NSObject {
     
     //
     // MARK: Properties
@@ -35,17 +35,17 @@ public final class Flex {
     /**
      Flex items's UIView.
     */
-    public private(set) weak var view: UIView?
+    @objc public private(set) weak var view: UIView?
     private let yoga: YGLayout
     
     /**
      Item natural size, considering only properties of the view itself. Independent of the item frame.
      */
-    public var intrinsicSize: CGSize {
+    @objc public var intrinsicSize: CGSize {
         return yoga.intrinsicSize
     }
     
-    init(view: UIView) {
+    @objc init(view: UIView) {
         self.view = view
         self.yoga = view.yoga
         
@@ -66,7 +66,7 @@ public final class Flex {
      - Returns: The flex interface corresponding to the added view.
      */
     @discardableResult
-    public func addItem() -> Flex {
+    @objc public func addItem() -> Flex {
         let view = UIView()
         return addItem(view)
     }
@@ -80,7 +80,7 @@ public final class Flex {
      - Returns: The flex interface corresponding to the added view.
      */
     @discardableResult
-    public func addItem(_ view: UIView) -> Flex {
+    @objc public func addItem(_ view: UIView) -> Flex {
         if let host = self.view {
             host.addSubview(view)
             return view.flex
@@ -98,7 +98,7 @@ public final class Flex {
      - Returns: Flex interface
     */
     @discardableResult
-    public func define(_ closure: (_ flex: Flex) -> Void) -> Flex {
+    @objc public func define(_ closure: (_ flex: Flex) -> Void) -> Flex {
         closure(self)
         return self
     }
@@ -112,7 +112,7 @@ public final class Flex {
     
      - Parameter mode: specify the layout mod (LayoutMode).
     */
-    public func layout(mode: LayoutMode = .fitContainer) {
+    @objc public func layout(mode: LayoutMode = .fitContainer) {
         if case .fitContainer = mode {
             yoga.applyLayout(preservingOrigin: true)
         } else {
@@ -124,7 +124,7 @@ public final class Flex {
      This property controls dynamically if a flexbox's UIView is included or not in the flexbox layouting. When a
      flexbox's UIView is excluded, FlexLayout won't layout the view and its children views.
     */
-    public var isIncludedInLayout: Bool {
+    @objc public var isIncludedInLayout: Bool {
         get {
             return yoga.isIncludedInLayout
         }
@@ -141,14 +141,14 @@ public final class Flex {
      - Returns:
      */
     @discardableResult
-    public func isIncludedInLayout(_ included: Bool) -> Flex {
+    @objc public func isIncludedInLayout(_ included: Bool) -> Flex {
         self.isIncludedInLayout = included
         return self
     }
 
     /**
      The framework is so highly optimized, that flex item are layouted only when a flex property is changed and when flex container
-     size change. In the event that you want to force FlexLayout to do a layout of a flex item, you can mark it as dirty 
+     size change. In the event that you want to force FlexLayout to do a layout of a flex item, you can mark it as dirty
      using `markDirty()`.
      
      Dirty flag propagates to the root of the flexbox tree ensuring that when any item is invalidated its whole subtree will be re-calculated
@@ -156,7 +156,7 @@ public final class Flex {
      - Returns: Flex interface
     */
     @discardableResult
-    public func markDirty() -> Flex {
+    @objc public func markDirty() -> Flex {
         yoga.markDirty()
         return self
     }
@@ -167,7 +167,7 @@ public final class Flex {
      - Parameter size: frame size
      - Returns: item size
     */
-    public func sizeThatFits(size: CGSize) -> CGSize {
+    @objc public func sizeThatFits(size: CGSize) -> CGSize {
         return yoga.calculateLayout(with: size)
     }
     
@@ -185,35 +185,35 @@ public final class Flex {
      If its text direction is LTR (left to right), row represents the horizontal axis oriented from left to right, and row-reverse
      from right to left; if the direction is rtl, it's the opposite.
     */
-    public var direction: Direction? {
+    @objc public var direction: Direction {
         get {
             switch yoga.flexDirection {
             case .column:           return Flex.Direction.column
             case .columnReverse:    return Flex.Direction.columnReverse
             case .row:              return Flex.Direction.row
             case .rowReverse:       return Flex.Direction.rowReverse
-            default:                return nil
+            default:                return Flex.Direction.column
             }
         }
         set {
-            direction(newValue ?? .column)
+            direction(newValue)
         }
     }
 
     /**
      The `direction` property establishes the main-axis, thus defining the direction flex items are placed in the flex container.
     
-     The `direction` property specifies how flex items are laid out in the flex container, by setting the direction of the flex 
+     The `direction` property specifies how flex items are laid out in the flex container, by setting the direction of the flex
      container’s main axis. They can be laid out in two main directions,  like columns vertically or like rows horizontally.
     
-     Note that row and row-reverse are affected by the layout direction (see `layoutDirection` property) of the flex container. 
-     If its text direction is LTR (left to right), row represents the horizontal axis oriented from left to right, and row-reverse 
+     Note that row and row-reverse are affected by the layout direction (see `layoutDirection` property) of the flex container.
+     If its text direction is LTR (left to right), row represents the horizontal axis oriented from left to right, and row-reverse
      from right to left; if the direction is rtl, it's the opposite.
     
      - Parameter value: Default value is .column
     */
     @discardableResult
-    public func direction(_ value: Direction) -> Flex {
+    @objc public func direction(_ value: Direction) -> Flex {
         yoga.flexDirection = value.yogaValue
         return self
     }
@@ -224,21 +224,21 @@ public final class Flex {
      - Parameter value: Default value is .noWrap
     */
     @discardableResult
-    public func wrap(_ value: Wrap) -> Flex {
+    @objc public func wrap(_ value: Wrap) -> Flex {
         yoga.flexWrap = value.yogaValue
         return self
     }
     
     /**
-     Direction defaults to Inherit on all nodes except the root which defaults to LTR. It is up to you to detect the 
-     user’s preferred direction (most platforms have a standard way of doing this) and setting this direction on the 
+     Direction defaults to Inherit on all nodes except the root which defaults to LTR. It is up to you to detect the
+     user’s preferred direction (most platforms have a standard way of doing this) and setting this direction on the
      root of your layout tree.
     
      - Parameter value: new LayoutDirection
      - Returns:
     */
     @discardableResult
-    public func layoutDirection(_ value: LayoutDirection) -> Flex {
+    @objc public func layoutDirection(_ value: LayoutDirection) -> Flex {
         // WORK IN PROGRESS :-)
         /*switch value {
         case .auto:
@@ -260,14 +260,14 @@ public final class Flex {
     //
     
     /**
-     The `justifyContent` property defines the alignment along the main-axis of the current line of the flex container. 
-     It helps distribute extra free space leftover when either all the flex items on a line have reached their maximum 
+     The `justifyContent` property defines the alignment along the main-axis of the current line of the flex container.
+     It helps distribute extra free space leftover when either all the flex items on a line have reached their maximum
      size. For example, if children are flowing vertically, `justifyContent` controls how they align vertically.
     
      - Parameter value: Default value is .start
     */
     @discardableResult
-    public func justifyContent(_ value: JustifyContent) -> Flex {
+    @objc public func justifyContent(_ value: JustifyContent) -> Flex {
         yoga.justifyContent = value.yogaValue
         return self
     }
@@ -280,20 +280,20 @@ public final class Flex {
      - Parameter value: Default value is .stretch
      */
     @discardableResult
-    public func alignItems(_ value: AlignItems) -> Flex {
+    @objc public func alignItems(_ value: AlignItems) -> Flex {
         yoga.alignItems = value.yogaValue
         return self
     }
     
     /**
      The `alignSelf` property controls how a child aligns in the cross direction, overriding the `alignItems`
-     of the parent. For example, if children are flowing vertically, `alignSelf` will control how the flex item 
+     of the parent. For example, if children are flowing vertically, `alignSelf` will control how the flex item
      will align horizontally.
     
      - Parameter value: Default value is .auto
     */
     @discardableResult
-    public func alignSelf(_ value: AlignSelf) -> Flex {
+    @objc public func alignSelf(_ value: AlignSelf) -> Flex {
         yoga.alignSelf = value.yogaValue
         return self
     }
@@ -305,7 +305,7 @@ public final class Flex {
      - Parameter value: Default value is .start
      */
     @discardableResult
-    public func alignContent(_ value: AlignContent) -> Flex {
+    @objc public func alignContent(_ value: AlignContent) -> Flex {
         yoga.alignContent = value.yogaValue
         return self
     }
@@ -321,32 +321,32 @@ public final class Flex {
     //
     
     /**
-     The `grow` property defines the ability for a flex item to grow if necessary. It accepts a unitless value 
-     that serves as a proportion. It dictates what amount of the available space inside the flex container the 
+     The `grow` property defines the ability for a flex item to grow if necessary. It accepts a unitless value
+     that serves as a proportion. It dictates what amount of the available space inside the flex container the
      item should take up.
     
      - Parameter value: Default value is 0
     */
     @discardableResult
-    public func grow(_ value: CGFloat) -> Flex {
+    @objc public func grow(_ value: CGFloat) -> Flex {
         yoga.flexGrow = value
        return self
     }
     
     /**
-     It specifies the "flex shrink factor", which determines how much the flex item will shrink relative to the 
+     It specifies the "flex shrink factor", which determines how much the flex item will shrink relative to the
      rest of the flex items in the flex container when there isn't enough space on the main-axis.
     
-     When omitted, it is set to 0 and the flex shrink factor is multiplied by the flex `basis` when distributing 
+     When omitted, it is set to 0 and the flex shrink factor is multiplied by the flex `basis` when distributing
      negative space.
     
-     A shrink value of 0 keeps the view's size in the main-axis direction. Note that this may cause the view to 
+     A shrink value of 0 keeps the view's size in the main-axis direction. Note that this may cause the view to
      overflow its flex container.
     
      - Parameter value: Default value is 0
     */
     @discardableResult
-    public func shrink(_ value: CGFloat) -> Flex {
+    @objc public func shrink(_ value: CGFloat) -> Flex {
         yoga.flexShrink = value
         return self
     }
@@ -355,13 +355,13 @@ public final class Flex {
      This property takes the same values as the width and height properties, and specifies the initial size of the
      flex item, before free space is distributed according to the grow and shrink factors.
     
-     Specifying `nil` set the basis as `auto`, which means the length is equal to the length of the item. If the 
+     Specifying `nil` set the basis as `auto`, which means the length is equal to the length of the item. If the
      item has no length specified, the length will be according to its content.
     
      - Parameter value: Default value is 0
     */
     @discardableResult
-    public func basis(_ value: CGFloat?) -> Flex {
+    @objc public func basis(_ value: CGFloat) -> Flex {
         yoga.flexBasis = valueOrAuto(value)
         return self
     }
@@ -370,11 +370,11 @@ public final class Flex {
      This property takes the same values as the width and height properties, and specifies the initial size of the
      flex item, before free space is distributed according to the grow and shrink factors.
     
-     Specifying `nil` set the basis as `auto`, which means the length is equal to the length of the item. If the 
+     Specifying `nil` set the basis as `auto`, which means the length is equal to the length of the item. If the
      item has no length specified, the length will be according to its content.
     */
     @discardableResult
-    public func basis(_ percent: FPercent) -> Flex {
+    @objc public func basis(percent: FPercent) -> Flex {
         yoga.flexBasis = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -383,11 +383,11 @@ public final class Flex {
     // MARK: Width / height / height
     //
     
-    /** 
+    /**
      The value specifies the view's width in pixels. The value must be non-negative.
     */
     @discardableResult
-    public func width(_ value: CGFloat?) -> Flex {
+    @objc public func width(_ value: CGFloat) -> Flex {
         yoga.width = valueOrAuto(value)
         return self
     }
@@ -397,7 +397,7 @@ public final class Flex {
      Example: view.flex.width(20%)
      */
     @discardableResult
-    public func width(_ percent: FPercent) -> Flex {
+    @objc public func width(percent: FPercent) -> Flex {
         yoga.width = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -406,7 +406,7 @@ public final class Flex {
      The value specifies the view's height in pixels. The value must be non-negative.
      */
     @discardableResult
-    public func height(_ value: CGFloat?) -> Flex {
+    @objc public func height(_ value: CGFloat) -> Flex {
         yoga.height = valueOrAuto(value)
         return self
     }
@@ -416,7 +416,7 @@ public final class Flex {
      Example: view.flex.height(40%)
      */
     @discardableResult
-    public func height(_ percent: FPercent) -> Flex {
+    @objc public func height(percent: FPercent) -> Flex {
         yoga.height = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -425,9 +425,9 @@ public final class Flex {
      The value specifies view's width and the height in pixels. Values must be non-negative.
      */
     @discardableResult
-    public func size(_ size: CGSize?) -> Flex {
-        yoga.width = valueOrAuto(size?.width)
-        yoga.height = valueOrAuto(size?.height)
+    @objc public func size(_ size: CGSize) -> Flex {
+        yoga.width = valueOrAuto(size.width)
+        yoga.height = valueOrAuto(size.height)
         return self
     }
     
@@ -435,7 +435,7 @@ public final class Flex {
      The value specifies the width and the height of the view in pixels, creating a square view. Values must be non-negative.
      */
     @discardableResult
-    public func size(_ sideLength: CGFloat) -> Flex {
+    @objc public func size(sideLength: CGFloat) -> Flex {
         yoga.width = YGValue(sideLength)
         yoga.height = YGValue(sideLength)
         return self
@@ -445,7 +445,7 @@ public final class Flex {
      The value specifies the view's minimum width in pixels. The value must be non-negative.
      */
     @discardableResult
-    public func minWidth(_ value: CGFloat?) -> Flex {
+    @objc public func minWidth(_ value: CGFloat) -> Flex {
         yoga.minWidth = valueOrUndefined(value)
         return self
     }
@@ -454,7 +454,7 @@ public final class Flex {
      The value specifies the view's minimum width in percentage of its container width. The value must be non-negative.
      */
     @discardableResult
-    public func minWidth(_ percent: FPercent) -> Flex {
+    @objc public func minWidth(percent: FPercent) -> Flex {
         yoga.minWidth = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -463,7 +463,7 @@ public final class Flex {
      The value specifies the view's maximum width in pixels. The value must be non-negative.
      */
     @discardableResult
-    public func maxWidth(_ value: CGFloat?) -> Flex {
+    @objc public func maxWidth(_ value: CGFloat) -> Flex {
         yoga.maxWidth = valueOrUndefined(value)
         return self
     }
@@ -472,7 +472,7 @@ public final class Flex {
      The value specifies the view's maximum width in percentage of its container width. The value must be non-negative.
      */
     @discardableResult
-    public func maxWidth(_ percent: FPercent) -> Flex {
+    @objc public func maxWidth(percent: FPercent) -> Flex {
         yoga.maxWidth = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -481,7 +481,7 @@ public final class Flex {
      The value specifies the view's minimum height in pixels. The value must be non-negative.
      */
     @discardableResult
-    public func minHeight(_ value: CGFloat?) -> Flex {
+    @objc public func minHeight(_ value: CGFloat) -> Flex {
         yoga.minHeight = valueOrUndefined(value)
         return self
     }
@@ -490,7 +490,7 @@ public final class Flex {
      The value specifies the view's minimum height in percentage of its container height. The value must be non-negative.
      */
     @discardableResult
-    public func minHeight(_ percent: FPercent) -> Flex {
+    @objc public func minHeight(percent: FPercent) -> Flex {
         yoga.minHeight = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -499,7 +499,7 @@ public final class Flex {
      The value specifies the view's maximum height in pixels. The value must be non-negative.
      */
     @discardableResult
-    public func maxHeight(_ value: CGFloat?) -> Flex {
+    @objc public func maxHeight(_ value: CGFloat) -> Flex {
         yoga.maxHeight = valueOrUndefined(value)
         
         return self
@@ -509,22 +509,8 @@ public final class Flex {
      The value specifies the view's maximum height in percentage of its container height. The value must be non-negative.
      */
     @discardableResult
-    public func maxHeight(_ percent: FPercent) -> Flex {
+    @objc public func maxHeight(percent: FPercent) -> Flex {
         yoga.maxHeight = YGValue(value: Float(percent.value), unit: .percent)
-        return self
-    }
-    
-    /**
-     AspectRatio is a property introduced by Yoga that don't exist in CSS. AspectRatio solves the problem of knowing 
-     one dimension of an element and an aspect ratio, this is very common when it comes to images, videos, and other
-     media types. AspectRatio accepts any floating point value > 0, the default is undefined.
-    
-     - Parameter value:
-     - Returns:
-    */
-    @discardableResult
-    public func aspectRatio(_ value: CGFloat?) -> Flex {
-        yoga.aspectRatio = value != nil ? value! : CGFloat(YGValueUndefined.value)
         return self
     }
     
@@ -537,7 +523,21 @@ public final class Flex {
      - Returns:
     */
     @discardableResult
-    public func aspectRatio(of imageView: UIImageView) -> Flex {
+    @objc public func aspectRatio(_ value: CGFloat) -> Flex {
+        yoga.aspectRatio = value
+        return self
+    }
+    
+    /**
+     AspectRatio is a property introduced by Yoga that don't exist in CSS. AspectRatio solves the problem of knowing
+     one dimension of an element and an aspect ratio, this is very common when it comes to images, videos, and other
+     media types. AspectRatio accepts any floating point value > 0, the default is undefined.
+    
+     - Parameter value:
+     - Returns:
+    */
+    @discardableResult
+    @objc public func aspectRatio(of imageView: UIImageView) -> Flex {
         if let imageSize = imageView.image?.size {
             yoga.aspectRatio = imageSize.width / imageSize.height
         }
@@ -554,7 +554,7 @@ public final class Flex {
      - Parameter value: Default value is .relative
      */
     @discardableResult
-    public func position(_ value: Position) -> Flex {
+    @objc public func position(_ value: Position) -> Flex {
         yoga.position = value.yogaValue
         return self
     }
@@ -564,7 +564,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func left(_ value: CGFloat) -> Flex {
+    @objc public func left(_ value: CGFloat) -> Flex {
         yoga.left = YGValue(value)
         return self
     }
@@ -574,7 +574,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func left(_ percent: FPercent) -> Flex {
+    @objc public func left(percent: FPercent) -> Flex {
         yoga.left = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -584,7 +584,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func top(_ value: CGFloat) -> Flex {
+    @objc public func top(_ value: CGFloat) -> Flex {
         yoga.top = YGValue(value)
         return self
     }
@@ -594,7 +594,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func top(_ percent: FPercent) -> Flex {
+    @objc public func top(percent: FPercent) -> Flex {
         yoga.top = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -604,7 +604,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func right(_ value: CGFloat) -> Flex {
+    @objc public func right(_ value: CGFloat) -> Flex {
         yoga.right = YGValue(value)
         return self
     }
@@ -614,7 +614,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func right(_ percent: FPercent) -> Flex {
+    @objc public func right(percent: FPercent) -> Flex {
         yoga.right = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -624,7 +624,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func bottom(_ value: CGFloat) -> Flex {
+    @objc public func bottom(_ value: CGFloat) -> Flex {
         yoga.bottom = YGValue(value)
         return self
     }
@@ -634,7 +634,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func bottom(_ percent: FPercent) -> Flex {
+    @objc public func bottom(percent: FPercent) -> Flex {
         yoga.bottom = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -644,7 +644,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func start(_ value: CGFloat) -> Flex {
+    @objc public func start(_ value: CGFloat) -> Flex {
         yoga.start = YGValue(value)
         return self
     }
@@ -655,7 +655,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func start(_ percent: FPercent) -> Flex {
+    @objc public func start(percent: FPercent) -> Flex {
         yoga.start = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -665,7 +665,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func end(_ value: CGFloat) -> Flex {
+    @objc public func end(_ value: CGFloat) -> Flex {
         yoga.end = YGValue(value)
         return self
     }
@@ -676,7 +676,7 @@ public final class Flex {
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    public func end(_ percent: FPercent) -> Flex {
+    @objc public func end(percent: FPercent) -> Flex {
         yoga.end = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -687,7 +687,7 @@ public final class Flex {
      For relative position, the right edge will be ignored.
      */
     @discardableResult
-    public func horizontally(_ value: CGFloat) -> Flex {
+    @objc public func horizontally(_ value: CGFloat) -> Flex {
         yoga.left = YGValue(value)
         yoga.right = YGValue(value)
         return self
@@ -699,7 +699,7 @@ public final class Flex {
      For relative position, the right edge will be ignored.
      */
     @discardableResult
-    public func horizontally(_ percent: FPercent) -> Flex {
+    @objc public func horizontally(percent: FPercent) -> Flex {
         yoga.left = YGValue(value: Float(percent.value), unit: .percent)
         yoga.right = YGValue(value: Float(percent.value), unit: .percent)
         return self
@@ -711,7 +711,7 @@ public final class Flex {
      For relative position, the bottom edge will be ignored.
      */
     @discardableResult
-    public func vertically(_ value: CGFloat) -> Flex {
+    @objc public func vertically(_ value: CGFloat) -> Flex {
         yoga.top = YGValue(value)
         yoga.bottom = YGValue(value)
         return self
@@ -723,7 +723,7 @@ public final class Flex {
      For relative position, the bottom edge will be ignored.
      */
     @discardableResult
-    public func vertically(_ percent: FPercent) -> Flex {
+    @objc public func vertically(percent: FPercent) -> Flex {
         yoga.top = YGValue(value: Float(percent.value), unit: .percent)
         yoga.bottom = YGValue(value: Float(percent.value), unit: .percent)
         return self
@@ -735,7 +735,7 @@ public final class Flex {
      For relative position, the bottom and right edges will be ignored.
      */
     @discardableResult
-    public func all(_ value: CGFloat) -> Flex {
+    @objc public func all(_ value: CGFloat) -> Flex {
         yoga.top = YGValue(value)
         yoga.left = YGValue(value)
         yoga.bottom = YGValue(value)
@@ -749,7 +749,7 @@ public final class Flex {
      For relative position, the bottom and right edges will be ignored.
      */
     @discardableResult
-    public func all(_ percent: FPercent) -> Flex {
+    @objc public func all(percent: FPercent) -> Flex {
         yoga.top = YGValue(value: Float(percent.value), unit: .percent)
         yoga.left = YGValue(value: Float(percent.value), unit: .percent)
         yoga.bottom = YGValue(value: Float(percent.value), unit: .percent)
@@ -765,13 +765,13 @@ public final class Flex {
      Set the top margin. Top margin specify the offset the top edge of the item should have from it’s closest sibling (item) or parent (container).
      */
     @discardableResult
-    public func marginTop(_ value: CGFloat) -> Flex {
+    @objc public func marginTop(_ value: CGFloat) -> Flex {
         yoga.marginTop = YGValue(value)
         return self
     }
     
     @discardableResult
-    public func marginTop(_ percent: FPercent) -> Flex {
+    @objc public func marginTop(percent: FPercent) -> Flex {
         yoga.marginTop = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -780,13 +780,13 @@ public final class Flex {
      Set the left margin. Left margin specify the offset the left edge of the item should have from it’s closest sibling (item) or parent (container).
      */
     @discardableResult
-    public func marginLeft(_ value: CGFloat) -> Flex {
+    @objc public func marginLeft(_ value: CGFloat) -> Flex {
         yoga.marginLeft = YGValue(value)
         return self
     }
     
     @discardableResult
-    public func marginLeft(_ percent: FPercent) -> Flex {
+    @objc public func marginLeft(percent: FPercent) -> Flex {
         yoga.marginLeft = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -795,13 +795,13 @@ public final class Flex {
      Set the bottom margin. Bottom margin specify the offset the bottom edge of the item should have from it’s closest sibling (item) or parent (container).
      */
     @discardableResult
-    public func marginBottom(_ value: CGFloat) -> Flex {
+    @objc public func marginBottom(_ value: CGFloat) -> Flex {
         yoga.marginBottom = YGValue(value)
         return self
     }
     
     @discardableResult
-    public func marginBottom(_ percent: FPercent) -> Flex {
+    @objc public func marginBottom(percent: FPercent) -> Flex {
         yoga.marginBottom = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -810,13 +810,13 @@ public final class Flex {
      Set the right margin. Right margin specify the offset the right edge of the item should have from it’s closest sibling (item) or parent (container).
      */
     @discardableResult
-    public func marginRight(_ value: CGFloat) -> Flex {
+    @objc public func marginRight(_ value: CGFloat) -> Flex {
         yoga.marginRight = YGValue(value)
         return self
     }
     
     @discardableResult
-    public func marginRight(_ percent: FPercent) -> Flex {
+    @objc public func marginRight(percent: FPercent) -> Flex {
         yoga.marginRight = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -829,13 +829,13 @@ public final class Flex {
      * IN RTL direction, start margin specify the offset the **right** edge of the item should have from it’s closest sibling (item) or parent (container).
      */
     @discardableResult
-    public func marginStart(_ value: CGFloat) -> Flex {
+    @objc public func marginStart(_ value: CGFloat) -> Flex {
         yoga.marginStart = YGValue(value)
         return self
     }
     
     @discardableResult
-    public func marginStart(_ percent: FPercent) -> Flex {
+    @objc public func marginStart(percent: FPercent) -> Flex {
         yoga.marginStart = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -848,13 +848,13 @@ public final class Flex {
      * IN RTL direction, end margin specify the offset the **left** edge of the item should have from it’s closest sibling (item) or parent (container).
      */
     @discardableResult
-    public func marginEnd(_ value: CGFloat) -> Flex {
+    @objc public func marginEnd(_ value: CGFloat) -> Flex {
         yoga.marginEnd = YGValue(value)
         return self
     }
     
     @discardableResult
-    public func marginEnd(_ percent: FPercent) -> Flex {
+    @objc public func marginEnd(percent: FPercent) -> Flex {
         yoga.marginEnd = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -863,13 +863,13 @@ public final class Flex {
      Set the left, right, start and end margins to the specified value.
      */
     @discardableResult
-    public func marginHorizontal(_ value: CGFloat) -> Flex {
+    @objc public func marginHorizontal(_ value: CGFloat) -> Flex {
         yoga.marginHorizontal = YGValue(value)
         return self
     }
     
     @discardableResult
-    public func marginHorizontal(_ percent: FPercent) -> Flex {
+    @objc public func marginHorizontal(percent: FPercent) -> Flex {
         yoga.marginHorizontal = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -878,13 +878,13 @@ public final class Flex {
      Set the top and bottom margins to the specified value.
      */
     @discardableResult
-    public func marginVertical(_ value: CGFloat) -> Flex {
+    @objc public func marginVertical(_ value: CGFloat) -> Flex {
         yoga.marginVertical = YGValue(value)
         return self
     }
     
     @discardableResult
-    public func marginVertical(_ percent: FPercent) -> Flex {
+    @objc public func marginVertical(percent: FPercent) -> Flex {
         yoga.marginVertical = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -894,7 +894,7 @@ public final class Flex {
      This method is particularly useful to set all margins using iOS 11 `UIView.safeAreaInsets`.
      */
     @discardableResult
-    public func margin(_ insets: UIEdgeInsets) -> Flex {
+    @objc public func margin(_ insets: UIEdgeInsets) -> Flex {
         yoga.marginTop = YGValue(insets.top)
         yoga.marginLeft = YGValue(insets.left)
         yoga.marginBottom = YGValue(insets.bottom)
@@ -910,7 +910,7 @@ public final class Flex {
      */
     @available(tvOS 11.0, iOS 11.0, *)
     @discardableResult
-    public func margin(_ directionalInsets: NSDirectionalEdgeInsets) -> Flex {
+    @objc public func margin(directionalInsets: NSDirectionalEdgeInsets) -> Flex {
         yoga.marginTop = YGValue(directionalInsets.top)
         yoga.marginStart = YGValue(directionalInsets.leading)
         yoga.marginBottom = YGValue(directionalInsets.bottom)
@@ -922,13 +922,13 @@ public final class Flex {
      Set all margins to the specified value.
      */
     @discardableResult
-    public func margin(_ value: CGFloat) -> Flex {
+    @objc public func margin(value: CGFloat) -> Flex {
         yoga.margin = YGValue(value)
         return self
     }
     
     @discardableResult
-    public func margin(_ percent: FPercent) -> Flex {
+    @objc public func margin(percent: FPercent) -> Flex {
         yoga.margin = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -937,14 +937,14 @@ public final class Flex {
      Set the individually vertical margins (top, bottom) and horizontal margins (left, right, start, end).
      */
     @discardableResult
-    public func margin(_ vertical: CGFloat, _ horizontal: CGFloat) -> Flex {
+    @objc public func margin(_ vertical: CGFloat, _ horizontal: CGFloat) -> Flex {
         yoga.marginVertical = YGValue(vertical)
         yoga.marginHorizontal = YGValue(horizontal)
         return self
     }
     
     @discardableResult
-    public func margin(_ vertical: FPercent, _ horizontal: FPercent) -> Flex {
+    @objc public func margin(vertical: FPercent, horizontal: FPercent) -> Flex {
         yoga.marginVertical = YGValue(value: Float(vertical.value), unit: .percent)
         yoga.marginHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
         return self
@@ -954,7 +954,7 @@ public final class Flex {
      Set the individually top, horizontal margins and bottom margin.
      */
     @discardableResult
-    public func margin(_ top: CGFloat, _ horizontal: CGFloat, _ bottom: CGFloat) -> Flex {
+    @objc public func margin(_ top: CGFloat, _ horizontal: CGFloat, _ bottom: CGFloat) -> Flex {
         yoga.marginTop = YGValue(top)
         yoga.marginHorizontal = YGValue(horizontal)
         yoga.marginBottom = YGValue(bottom)
@@ -962,7 +962,7 @@ public final class Flex {
     }
     
     @discardableResult
-    public func margin(_ top: FPercent, _ horizontal: FPercent, _ bottom: FPercent) -> Flex {
+    @objc public func margin(top: FPercent, horizontal: FPercent, bottom: FPercent) -> Flex {
         yoga.marginTop = YGValue(value: Float(top.value), unit: .percent)
         yoga.marginHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
         yoga.marginBottom = YGValue(value: Float(bottom.value), unit: .percent)
@@ -973,7 +973,7 @@ public final class Flex {
      Set the individually top, left, bottom and right margins.
      */
     @discardableResult
-    public func margin(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Flex {
+    @objc public func margin(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Flex {
         yoga.marginTop = YGValue(top)
         yoga.marginLeft = YGValue(left)
         yoga.marginBottom = YGValue(bottom)
@@ -982,7 +982,7 @@ public final class Flex {
     }
     
     @discardableResult
-    public func margin(_ top: FPercent, _ left: FPercent, _ bottom: FPercent, _ right: FPercent) -> Flex {
+    @objc public func margin(top: FPercent, left: FPercent, bottom: FPercent, right: FPercent) -> Flex {
         yoga.marginTop = YGValue(value: Float(top.value), unit: .percent)
         yoga.marginLeft = YGValue(value: Float(left.value), unit: .percent)
         yoga.marginBottom = YGValue(value: Float(bottom.value), unit: .percent)
@@ -998,13 +998,13 @@ public final class Flex {
      Set the top padding. Top padding specify the **offset children should have** from the container's top edge.
      */
     @discardableResult
-    public func paddingTop(_ value: CGFloat) -> Flex {
+    @objc public func paddingTop(_ value: CGFloat) -> Flex {
         yoga.paddingTop = YGValue(value)
         return self
     }
 
     @discardableResult
-    public func paddingTop(_ percent: FPercent) -> Flex {
+    @objc public func paddingTop(percent: FPercent) -> Flex {
         yoga.paddingTop = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -1013,13 +1013,13 @@ public final class Flex {
      Set the left padding. Left padding specify the **offset children should have** from the container's left edge.
      */
     @discardableResult
-    public func paddingLeft(_ value: CGFloat) -> Flex {
+    @objc public func paddingLeft(_ value: CGFloat) -> Flex {
         yoga.paddingLeft = YGValue(value)
         return self
     }
 
     @discardableResult
-    public func paddingLeft(_ percent: FPercent) -> Flex {
+    @objc public func paddingLeft(percent: FPercent) -> Flex {
         yoga.paddingLeft = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -1028,13 +1028,13 @@ public final class Flex {
      Set the bottom padding. Bottom padding specify the **offset children should have** from the container's bottom edge.
      */
     @discardableResult
-    public func paddingBottom(_ value: CGFloat) -> Flex {
+    @objc public func paddingBottom(_ value: CGFloat) -> Flex {
         yoga.paddingBottom = YGValue(value)
         return self
     }
 
     @discardableResult
-    public func paddingBottom(_ percent: FPercent) -> Flex {
+    @objc public func paddingBottom(percent: FPercent) -> Flex {
         yoga.paddingBottom = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -1043,13 +1043,13 @@ public final class Flex {
      Set the right padding. Right padding specify the **offset children should have** from the container's right edge.
      */
     @discardableResult
-    public func paddingRight(_ value: CGFloat) -> Flex {
+    @objc public func paddingRight(_ value: CGFloat) -> Flex {
         yoga.paddingRight = YGValue(value)
         return self
     }
 
     @discardableResult
-    public func paddingRight(_ percent: FPercent) -> Flex {
+    @objc public func paddingRight(percent: FPercent) -> Flex {
         yoga.paddingRight = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -1062,13 +1062,13 @@ public final class Flex {
      * IN RTL direction, start padding specify the **offset children should have** from the container's right edge.
      */
     @discardableResult
-    public func paddingStart(_ value: CGFloat) -> Flex {
+    @objc public func paddingStart(_ value: CGFloat) -> Flex {
         yoga.paddingStart = YGValue(value)
         return self
     }
 
     @discardableResult
-    public func paddingStart(_ percent: FPercent) -> Flex {
+    @objc public func paddingStart(percent: FPercent) -> Flex {
         yoga.paddingStart = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -1081,13 +1081,13 @@ public final class Flex {
      * IN RTL direction, end padding specify the **offset children should have** from the container's left edge.
      */
     @discardableResult
-    public func paddingEnd(_ value: CGFloat) -> Flex {
+    @objc public func paddingEnd(_ value: CGFloat) -> Flex {
         yoga.paddingEnd = YGValue(value)
         return self
     }
 
     @discardableResult
-    public func paddingEnd(_ percent: FPercent) -> Flex {
+    @objc public func paddingEnd(percent: FPercent) -> Flex {
         yoga.paddingEnd = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -1096,13 +1096,13 @@ public final class Flex {
      Set the left, right, start and end paddings to the specified value.
      */
     @discardableResult
-    public func paddingHorizontal(_ value: CGFloat) -> Flex {
+    @objc public func paddingHorizontal(_ value: CGFloat) -> Flex {
         yoga.paddingHorizontal = YGValue(value)
         return self
     }
 
     @discardableResult
-    public func paddingHorizontal(_ percent: FPercent) -> Flex {
+    @objc public func paddingHorizontal(percent: FPercent) -> Flex {
         yoga.paddingHorizontal = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -1111,13 +1111,13 @@ public final class Flex {
      Set the top and bottom paddings to the specified value.
      */
     @discardableResult
-    public func paddingVertical(_ value: CGFloat) -> Flex {
+    @objc public func paddingVertical(_ value: CGFloat) -> Flex {
         yoga.paddingVertical = YGValue(value)
         return self
     }
 
     @discardableResult
-    public func paddingVertical(_ percent: FPercent) -> Flex {
+    @objc public func paddingVertical(percent: FPercent) -> Flex {
         yoga.paddingVertical = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -1127,7 +1127,7 @@ public final class Flex {
      This method is particularly useful to set all paddings using iOS 11 `UIView.safeAreaInsets`.
      */
     @discardableResult
-    public func padding(_ insets: UIEdgeInsets) -> Flex {
+    @objc public func padding(insets: UIEdgeInsets) -> Flex {
         yoga.paddingTop = YGValue(insets.top)
         yoga.paddingLeft = YGValue(insets.left)
         yoga.paddingBottom = YGValue(insets.bottom)
@@ -1143,7 +1143,7 @@ public final class Flex {
      */
     @available(tvOS 11.0, iOS 11.0, *)
     @discardableResult
-    public func padding(_ directionalInsets: NSDirectionalEdgeInsets) -> Flex {
+    @objc public func padding(directionalInsets: NSDirectionalEdgeInsets) -> Flex {
         yoga.paddingTop = YGValue(directionalInsets.top)
         yoga.paddingStart = YGValue(directionalInsets.leading)
         yoga.paddingBottom = YGValue(directionalInsets.bottom)
@@ -1155,13 +1155,13 @@ public final class Flex {
      Set all paddings to the specified value.
      */
     @discardableResult
-    public func padding(_ value: CGFloat) -> Flex {
+    @objc public func padding(_ value: CGFloat) -> Flex {
         yoga.padding = YGValue(value)
         return self
     }
 
     @discardableResult
-    public func padding(_ percent: FPercent) -> Flex {
+    @objc public func padding(percent: FPercent) -> Flex {
         yoga.padding = YGValue(value: Float(percent.value), unit: .percent)
         return self
     }
@@ -1170,14 +1170,14 @@ public final class Flex {
      Set the individually vertical paddings (top, bottom) and horizontal paddings (left, right, start, end).
      */
     @discardableResult
-    public func padding(_ vertical: CGFloat, _ horizontal: CGFloat) -> Flex {
+    @objc public func padding(_ vertical: CGFloat, _ horizontal: CGFloat) -> Flex {
         yoga.paddingVertical = YGValue(vertical)
         yoga.paddingHorizontal = YGValue(horizontal)
         return self
     }
 
     @discardableResult
-    public func padding(_ vertical: FPercent, _ horizontal: FPercent) -> Flex {
+    @objc public func padding(vertical: FPercent, horizontal: FPercent) -> Flex {
         yoga.paddingVertical = YGValue(value: Float(vertical.value), unit: .percent)
         yoga.paddingHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
         return self
@@ -1187,7 +1187,7 @@ public final class Flex {
      Set the individually top, horizontal paddings and bottom padding.
      */
     @discardableResult
-    public func padding(_ top: CGFloat, _ horizontal: CGFloat, _ bottom: CGFloat) -> Flex {
+    @objc public func padding(_ top: CGFloat, _ horizontal: CGFloat, _ bottom: CGFloat) -> Flex {
         yoga.paddingTop = YGValue(top)
         yoga.paddingHorizontal = YGValue(horizontal)
         yoga.paddingBottom = YGValue(bottom)
@@ -1195,7 +1195,7 @@ public final class Flex {
     }
 
     @discardableResult
-    public func padding(_ top: FPercent, _ horizontal: FPercent, _ bottom: FPercent) -> Flex {
+    @objc public func padding(top: FPercent, horizontal: FPercent, bottom: FPercent) -> Flex {
         yoga.paddingTop = YGValue(value: Float(top.value), unit: .percent)
         yoga.paddingHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
         yoga.paddingBottom = YGValue(value: Float(bottom.value), unit: .percent)
@@ -1206,7 +1206,7 @@ public final class Flex {
      Set the individually top, left, bottom and right paddings.
      */
     @discardableResult
-    public func padding(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Flex {
+    @objc public func padding(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Flex {
         yoga.paddingTop = YGValue(top)
         yoga.paddingLeft = YGValue(left)
         yoga.paddingBottom = YGValue(bottom)
@@ -1215,7 +1215,7 @@ public final class Flex {
     }
 
     @discardableResult
-    public func padding(_ top: FPercent, _ left: FPercent, _ bottom: FPercent, _ right: FPercent) -> Flex {
+    @objc public func padding(top: FPercent, left: FPercent, bottom: FPercent, right: FPercent) -> Flex {
         yoga.paddingTop = YGValue(value: Float(top.value), unit: .percent)
         yoga.paddingLeft = YGValue(value: Float(left.value), unit: .percent)
         yoga.paddingBottom = YGValue(value: Float(bottom.value), unit: .percent)
@@ -1235,7 +1235,7 @@ public final class Flex {
      - Returns: flex interface
     */
     @discardableResult
-    public func columnGap(_ value: CGFloat) -> Flex {
+    @objc public func columnGap(_ value: CGFloat) -> Flex {
         yoga.columnGap = value
         return self
     }
@@ -1248,7 +1248,7 @@ public final class Flex {
      - Returns: flex interface
     */
     @discardableResult
-    public func rowGap(_ value: CGFloat) -> Flex {
+    @objc public func rowGap(_ value: CGFloat) -> Flex {
         yoga.rowGap = value
         return self
     }
@@ -1261,7 +1261,7 @@ public final class Flex {
      - Returns: flex interface
     */
     @discardableResult
-    public func gap(_ value: CGFloat) -> Flex {
+    @objc public func gap(_ value: CGFloat) -> Flex {
         yoga.gap = value
         return self
     }
@@ -1277,7 +1277,7 @@ public final class Flex {
      - Returns: flex interface
     */
     @discardableResult
-    public func backgroundColor(_ color: UIColor) -> Flex {
+    @objc public func backgroundColor(_ color: UIColor) -> Flex {
         if let host = self.view {
             host.backgroundColor = color
             return self
@@ -1294,7 +1294,7 @@ public final class Flex {
      - Returns: flex interface
      */
     @discardableResult
-    public func cornerRadius(_ value: CGFloat) -> Flex {
+    @objc public func cornerRadius(_ value: CGFloat) -> Flex {
         if let host = self.view {
             host.layer.cornerRadius = value
             return self
@@ -1312,7 +1312,7 @@ public final class Flex {
      - Returns: flex interface
      */
     @discardableResult
-    public func border(_ width: CGFloat, _ color: UIColor) -> Flex {
+    @objc public func border(_ width: CGFloat, _ color: UIColor) -> Flex {
         if let host = self.view {
             host.layer.borderWidth = width
             host.layer.borderColor = color.cgColor
@@ -1330,7 +1330,7 @@ public final class Flex {
      Set the view display or not
      */
     @discardableResult
-    public func display(_ value: Display) -> Flex {
+    @objc public func display(_ value: Display) -> Flex {
         yoga.display = value.yogaValue
         return self
     }
@@ -1339,7 +1339,7 @@ public final class Flex {
     
     /**
      */
-    public enum Direction {
+    @objc public enum Direction: Int {
         /// Default value. The flexible items are displayed vertically, as a column.
         case column
         /// Same as column, but in reverse order
@@ -1352,7 +1352,7 @@ public final class Flex {
     
     /**
      */
-    public enum JustifyContent {
+    @objc public enum JustifyContent: Int {
         /// Default value. Items are positioned at the beginning of the container.
         case start
         /// Items are positioned at the center of the container
@@ -1369,7 +1369,7 @@ public final class Flex {
     
     /**
      */
-    public enum AlignContent {
+    @objc public enum AlignContent: Int {
         /// Default value. Lines stretch to take up the remaining space
         case stretch
         /// Lines are packed toward the start of the flex container
@@ -1380,7 +1380,7 @@ public final class Flex {
         case end
         /// Lines are evenly distributed in the flex container
         case spaceBetween
-        /// Lines are evenly distributed in the flex container, with half-size spaces on either end	Play it »
+        /// Lines are evenly distributed in the flex container, with half-size spaces on either end    Play it »
         case spaceAround
         /// Lines are evenly distributed in the flex container
         /// The size of gaps between children and between the parent's edges and the first/last child will all be equal
@@ -1389,7 +1389,7 @@ public final class Flex {
     
     /**
      */
-    public enum AlignItems {
+    @objc public enum AlignItems: Int {
         /// Default. Items are stretched to fit the container
         case stretch
         /// Items are positioned at the beginning of the container
@@ -1404,7 +1404,7 @@ public final class Flex {
     
     /**
      */
-    public enum AlignSelf {
+    @objc public enum AlignSelf: Int {
         /// Default. The element inherits its parent container's align-items property, or "stretch" if it has no parent container
         case auto
         /// The element is positioned to fit the container
@@ -1421,7 +1421,7 @@ public final class Flex {
     
     /**
      */
-    public enum Wrap {
+    @objc public enum Wrap: Int {
         /// Default value. Specifies that the flexible items will not wrap
         case noWrap
         /// Specifies that the flexible items will wrap if necessary
@@ -1432,7 +1432,7 @@ public final class Flex {
     
     /**
      */
-    public enum Position {
+    @objc public enum Position: Int {
         /// Default value. Positioned according to the flex container's flow. The item is positioned using Insets properties (top, bottom, left, right, start, end) from its normal position within its flex container and will take up space within the flex container. This node will always form a containing block.
         case relative
         /// Positioned absolutely, removed from the flex container's flow. The item is positioned using Insets properties (top, bottom, left, right, start, end). Insets will offset the node from its containing block.
@@ -1443,7 +1443,7 @@ public final class Flex {
     
     /**
      */
-    public enum LayoutDirection {
+    @objc public enum LayoutDirection: Int {
         /// Default value.
         case inherit
         /// Left to right layout direction
@@ -1456,7 +1456,7 @@ public final class Flex {
     /**
      Defines how the `layout(mode:)` method layout its flex items.
      */
-    public enum LayoutMode {
+    @objc public enum LayoutMode: Int {
         /// This is the default mode when no parameter is specified. Children are layouted **inside** the container's size (width and height).
         case fitContainer
         /// In this mode, children are layouted **using only the container's width**. The container's height will be adjusted to fit the flexbox's children
@@ -1467,7 +1467,7 @@ public final class Flex {
     
     /**
      */
-    public enum Display {
+    @objc public enum Display: Int {
         /// Default value
         case flex
         /// With this value, the item will be hidden and not be calculated

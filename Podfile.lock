@@ -1,10 +1,10 @@
 PODS:
-  - FlexLayout (2.0.10)
+  - FlexLayoutObjC (2.0.10)
   - PinLayout (1.10.5)
   - SwiftLint (0.55.1)
 
 DEPENDENCIES:
-  - FlexLayout (from `./`)
+  - FlexLayoutObjC (from `./`)
   - PinLayout
   - SwiftLint
 
@@ -14,14 +14,14 @@ SPEC REPOS:
     - SwiftLint
 
 EXTERNAL SOURCES:
-  FlexLayout:
+  FlexLayoutObjC:
     :path: "./"
 
 SPEC CHECKSUMS:
-  FlexLayout: ea94491c923485f7f28891cb5b10245d22df380b
+  FlexLayoutObjC: 76c42e5d256ad11592c9fe0813b1389085d4a035
   PinLayout: f6c2b63a5a5b24864064e1d15c67de41b4e74748
   SwiftLint: 3fe909719babe5537c552ee8181c0031392be933
 
-PODFILE CHECKSUM: a0f152e938c551fd661bee3ffe26ccc6175f088b
+PODFILE CHECKSUM: c547fd094401586bbe27d63e0561f5e888a88f75
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2
