@@ -374,8 +374,8 @@ import FlexLayoutYogaKit
      item has no length specified, the length will be according to its content.
     */
     @discardableResult
-    @objc public func basis(percent: FPercent) -> Flex {
-        yoga.flexBasis = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func basis(percent: CGFloat) -> Flex {
+        yoga.flexBasis = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -397,8 +397,8 @@ import FlexLayoutYogaKit
      Example: view.flex.width(20%)
      */
     @discardableResult
-    @objc public func width(percent: FPercent) -> Flex {
-        yoga.width = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func width(percent: CGFloat) -> Flex {
+        yoga.width = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -416,8 +416,8 @@ import FlexLayoutYogaKit
      Example: view.flex.height(40%)
      */
     @discardableResult
-    @objc public func height(percent: FPercent) -> Flex {
-        yoga.height = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func height(percent: CGFloat) -> Flex {
+        yoga.height = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -454,8 +454,8 @@ import FlexLayoutYogaKit
      The value specifies the view's minimum width in percentage of its container width. The value must be non-negative.
      */
     @discardableResult
-    @objc public func minWidth(percent: FPercent) -> Flex {
-        yoga.minWidth = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func minWidth(percent: CGFloat) -> Flex {
+        yoga.minWidth = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -472,8 +472,8 @@ import FlexLayoutYogaKit
      The value specifies the view's maximum width in percentage of its container width. The value must be non-negative.
      */
     @discardableResult
-    @objc public func maxWidth(percent: FPercent) -> Flex {
-        yoga.maxWidth = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func maxWidth(percent: CGFloat) -> Flex {
+        yoga.maxWidth = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -490,8 +490,8 @@ import FlexLayoutYogaKit
      The value specifies the view's minimum height in percentage of its container height. The value must be non-negative.
      */
     @discardableResult
-    @objc public func minHeight(percent: FPercent) -> Flex {
-        yoga.minHeight = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func minHeight(percent: CGFloat) -> Flex {
+        yoga.minHeight = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -509,8 +509,8 @@ import FlexLayoutYogaKit
      The value specifies the view's maximum height in percentage of its container height. The value must be non-negative.
      */
     @discardableResult
-    @objc public func maxHeight(percent: FPercent) -> Flex {
-        yoga.maxHeight = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func maxHeight(percent: CGFloat) -> Flex {
+        yoga.maxHeight = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -574,8 +574,8 @@ import FlexLayoutYogaKit
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    @objc public func left(percent: FPercent) -> Flex {
-        yoga.left = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func left(percent: CGFloat) -> Flex {
+        yoga.left = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -594,8 +594,8 @@ import FlexLayoutYogaKit
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    @objc public func top(percent: FPercent) -> Flex {
-        yoga.top = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func top(percent: CGFloat) -> Flex {
+        yoga.top = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -614,8 +614,8 @@ import FlexLayoutYogaKit
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    @objc public func right(percent: FPercent) -> Flex {
-        yoga.right = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func right(percent: CGFloat) -> Flex {
+        yoga.right = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -634,8 +634,8 @@ import FlexLayoutYogaKit
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    @objc public func bottom(percent: FPercent) -> Flex {
-        yoga.bottom = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func bottom(percent: CGFloat) -> Flex {
+        yoga.bottom = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -655,8 +655,8 @@ import FlexLayoutYogaKit
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    @objc public func start(percent: FPercent) -> Flex {
-        yoga.start = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func start(percent: CGFloat) -> Flex {
+        yoga.start = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -676,8 +676,8 @@ import FlexLayoutYogaKit
      This method is valid only when the item position is absolute or relative. It is not valid when the position is static.
      */
     @discardableResult
-    @objc public func end(percent: FPercent) -> Flex {
-        yoga.end = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func end(percent: CGFloat) -> Flex {
+        yoga.end = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -699,9 +699,9 @@ import FlexLayoutYogaKit
      For relative position, the right edge will be ignored.
      */
     @discardableResult
-    @objc public func horizontally(percent: FPercent) -> Flex {
-        yoga.left = YGValue(value: Float(percent.value), unit: .percent)
-        yoga.right = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func horizontally(percent: CGFloat) -> Flex {
+        yoga.left = YGValue(value: Float(percent), unit: .percent)
+        yoga.right = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -723,9 +723,9 @@ import FlexLayoutYogaKit
      For relative position, the bottom edge will be ignored.
      */
     @discardableResult
-    @objc public func vertically(percent: FPercent) -> Flex {
-        yoga.top = YGValue(value: Float(percent.value), unit: .percent)
-        yoga.bottom = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func vertically(percent: CGFloat) -> Flex {
+        yoga.top = YGValue(value: Float(percent), unit: .percent)
+        yoga.bottom = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -749,11 +749,11 @@ import FlexLayoutYogaKit
      For relative position, the bottom and right edges will be ignored.
      */
     @discardableResult
-    @objc public func all(percent: FPercent) -> Flex {
-        yoga.top = YGValue(value: Float(percent.value), unit: .percent)
-        yoga.left = YGValue(value: Float(percent.value), unit: .percent)
-        yoga.bottom = YGValue(value: Float(percent.value), unit: .percent)
-        yoga.right = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func all(percent: CGFloat) -> Flex {
+        yoga.top = YGValue(value: Float(percent), unit: .percent)
+        yoga.left = YGValue(value: Float(percent), unit: .percent)
+        yoga.bottom = YGValue(value: Float(percent), unit: .percent)
+        yoga.right = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -771,8 +771,8 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
-    @objc public func marginTop(percent: FPercent) -> Flex {
-        yoga.marginTop = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func marginTop(percent: CGFloat) -> Flex {
+        yoga.marginTop = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -786,8 +786,8 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
-    @objc public func marginLeft(percent: FPercent) -> Flex {
-        yoga.marginLeft = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func marginLeft(percent: CGFloat) -> Flex {
+        yoga.marginLeft = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -801,8 +801,8 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
-    @objc public func marginBottom(percent: FPercent) -> Flex {
-        yoga.marginBottom = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func marginBottom(percent: CGFloat) -> Flex {
+        yoga.marginBottom = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -816,8 +816,8 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
-    @objc public func marginRight(percent: FPercent) -> Flex {
-        yoga.marginRight = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func marginRight(percent: CGFloat) -> Flex {
+        yoga.marginRight = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -835,8 +835,8 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
-    @objc public func marginStart(percent: FPercent) -> Flex {
-        yoga.marginStart = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func marginStart(percent: CGFloat) -> Flex {
+        yoga.marginStart = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -854,8 +854,8 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
-    @objc public func marginEnd(percent: FPercent) -> Flex {
-        yoga.marginEnd = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func marginEnd(percent: CGFloat) -> Flex {
+        yoga.marginEnd = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -869,8 +869,8 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
-    @objc public func marginHorizontal(percent: FPercent) -> Flex {
-        yoga.marginHorizontal = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func marginHorizontal(percent: CGFloat) -> Flex {
+        yoga.marginHorizontal = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -884,8 +884,8 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
-    @objc public func marginVertical(percent: FPercent) -> Flex {
-        yoga.marginVertical = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func marginVertical(percent: CGFloat) -> Flex {
+        yoga.marginVertical = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -928,8 +928,8 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
-    @objc public func margin(percent: FPercent) -> Flex {
-        yoga.margin = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func margin(percent: CGFloat) -> Flex {
+        yoga.margin = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -1004,8 +1004,8 @@ import FlexLayoutYogaKit
     }
 
     @discardableResult
-    @objc public func paddingTop(percent: FPercent) -> Flex {
-        yoga.paddingTop = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func paddingTop(percent: CGFloat) -> Flex {
+        yoga.paddingTop = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -1019,8 +1019,8 @@ import FlexLayoutYogaKit
     }
 
     @discardableResult
-    @objc public func paddingLeft(percent: FPercent) -> Flex {
-        yoga.paddingLeft = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func paddingLeft(percent: CGFloat) -> Flex {
+        yoga.paddingLeft = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -1034,8 +1034,8 @@ import FlexLayoutYogaKit
     }
 
     @discardableResult
-    @objc public func paddingBottom(percent: FPercent) -> Flex {
-        yoga.paddingBottom = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func paddingBottom(percent: CGFloat) -> Flex {
+        yoga.paddingBottom = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -1049,8 +1049,8 @@ import FlexLayoutYogaKit
     }
 
     @discardableResult
-    @objc public func paddingRight(percent: FPercent) -> Flex {
-        yoga.paddingRight = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func paddingRight(percent: CGFloat) -> Flex {
+        yoga.paddingRight = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -1068,8 +1068,8 @@ import FlexLayoutYogaKit
     }
 
     @discardableResult
-    @objc public func paddingStart(percent: FPercent) -> Flex {
-        yoga.paddingStart = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func paddingStart(percent: CGFloat) -> Flex {
+        yoga.paddingStart = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -1087,8 +1087,8 @@ import FlexLayoutYogaKit
     }
 
     @discardableResult
-    @objc public func paddingEnd(percent: FPercent) -> Flex {
-        yoga.paddingEnd = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func paddingEnd(percent: CGFloat) -> Flex {
+        yoga.paddingEnd = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -1102,8 +1102,8 @@ import FlexLayoutYogaKit
     }
 
     @discardableResult
-    @objc public func paddingHorizontal(percent: FPercent) -> Flex {
-        yoga.paddingHorizontal = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func paddingHorizontal(percent: CGFloat) -> Flex {
+        yoga.paddingHorizontal = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
@@ -1117,8 +1117,8 @@ import FlexLayoutYogaKit
     }
 
     @discardableResult
-    @objc public func paddingVertical(percent: FPercent) -> Flex {
-        yoga.paddingVertical = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func paddingVertical(percent: CGFloat) -> Flex {
+        yoga.paddingVertical = YGValue(value: Float(percent), unit: .percent)
         return self
     }
     
@@ -1161,8 +1161,8 @@ import FlexLayoutYogaKit
     }
 
     @discardableResult
-    @objc public func padding(percent: FPercent) -> Flex {
-        yoga.padding = YGValue(value: Float(percent.value), unit: .percent)
+    @objc public func padding(percent: CGFloat) -> Flex {
+        yoga.padding = YGValue(value: Float(percent), unit: .percent)
         return self
     }
 
