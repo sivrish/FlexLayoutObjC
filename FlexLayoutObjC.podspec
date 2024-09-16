@@ -12,6 +12,7 @@ Pod::Spec.new do |spec|
   spec.source_files = "Sources/**/*.{swift,h,m,mm,cpp,c}"
   spec.public_header_files = "Sources/yoga/include/yoga/*.h", "Sources/YogaKit/include/YogaKit/*.h"
   spec.libraries    = 'c++'
+  spec.swift_version = '5.9'
 
   # Should match yoga_defs.bzl + BUCK configuration
   spec.compiler_flags = [
