@@ -397,8 +397,8 @@ import FlexLayoutYogaKit
      Example: view.flex.width(20%)
      */
     @discardableResult
-    @objc public func width(percent: CGFloat) -> Flex {
-        yoga.width = YGValue(value: Float(percent), unit: .percent)
+    @objc public func width(percent: Float) -> Flex {
+        yoga.width = YGValue(value: percent, unit: .percent)
         return self
     }
     
