@@ -26,7 +26,7 @@ import FlexLayoutYogaKit
     label.flex.margin(10)
  ```
  */
-@objc public final class Flex: NSObject {
+@objc public class Flex: NSObject {
     
     //
     // MARK: Properties
@@ -408,10 +408,8 @@ import FlexLayoutYogaKit
         return self
     }
     
-    @discardableResult
-    @objc public func width(percentStr: CGFloat) -> Flex {
-        print("percent string \(percentStr) %")
-        return self
+    @objc public func swidth(_ value: CGFloat) {
+        print("percent string \(value) %")
     }
     
     @discardableResult
