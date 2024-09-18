@@ -402,6 +402,12 @@ import FlexLayoutYogaKit
         return self
     }
     
+    @discardableResult
+    @objc public func percentageWidth(percent: Float) -> Flex {
+        yoga.width = YGValue(value: percent, unit: .percent)
+        return self
+    }
+    
     /**
      The value specifies the view's height in pixels. The value must be non-negative.
      */
