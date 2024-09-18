@@ -19,12 +19,8 @@
 
 import UIKit
 
-@objc public class FPercent: NSObject {
+public struct FPercent {
     let value: CGFloat
-    
-    @objc init(value: CGFloat) {
-        self.value = value
-    }
 }
 
 postfix operator %
