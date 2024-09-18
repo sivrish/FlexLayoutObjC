@@ -14,7 +14,7 @@
 		24AE97411FEAF30A00995987 /* UIView+FlexLayoutObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AE97321FEAF30A00995987 /* UIView+FlexLayoutObjC.swift */; };
 		24AE97421FEAF30A00995987 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AE97331FEAF30A00995987 /* Percent.swift */; };
 		24AE974A1FEAF30A00995987 /* YGLayoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AE973D1FEAF30A00995987 /* YGLayoutExtensions.swift */; };
-		51BC1F9F2C9AAE4900C206E5 /* FlexObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 51BC1F9E2C9AAE4900C206E5 /* FlexObjC.m */; };
+		51BC1F9F2C9AAE4900C206E5 /* FlexObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 51BC1F9E2C9AAE4900C206E5 /* FlexObjC.mm */; };
 		51BC1FA02C9AAE4900C206E5 /* FlexObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 51BC1F9D2C9AAE4900C206E5 /* FlexObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		711F2EE72ACC727000DDDD67 /* WidthSizeContentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711F2EE12ACC727000DDDD67 /* WidthSizeContentTests.swift */; };
 		711F2EE82ACC727000DDDD67 /* PaddingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711F2EE22ACC727000DDDD67 /* PaddingTests.swift */; };
@@ -141,7 +141,7 @@
 		2B210ECFE9D7665DACB8E8A7 /* Pods-FlexLayoutTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlexLayoutTests.debug.xcconfig"; path = "Target Support Files/Pods-FlexLayoutTests/Pods-FlexLayoutTests.debug.xcconfig"; sourceTree = "<group>"; };
 		38E690AA4AF8EDFC95DB6626 /* Pods-FlexLayoutTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlexLayoutTests.release.xcconfig"; path = "Target Support Files/Pods-FlexLayoutTests/Pods-FlexLayoutTests.release.xcconfig"; sourceTree = "<group>"; };
 		51BC1F9D2C9AAE4900C206E5 /* FlexObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlexObjC.h; sourceTree = "<group>"; };
-		51BC1F9E2C9AAE4900C206E5 /* FlexObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlexObjC.m; sourceTree = "<group>"; };
+		51BC1F9E2C9AAE4900C206E5 /* FlexObjC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FlexObjC.mm; sourceTree = "<group>"; };
 		711F2EE12ACC727000DDDD67 /* WidthSizeContentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidthSizeContentTests.swift; sourceTree = "<group>"; };
 		711F2EE22ACC727000DDDD67 /* PaddingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingTests.swift; sourceTree = "<group>"; };
 		711F2EE32ACC727000DDDD67 /* FlexLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexLayoutTests.swift; sourceTree = "<group>"; };
@@ -351,7 +351,7 @@
 			children = (
 				24AE97351FEAF30A00995987 /* FlexLayoutObjC.h */,
 				51BC1F9D2C9AAE4900C206E5 /* FlexObjC.h */,
-				51BC1F9E2C9AAE4900C206E5 /* FlexObjC.m */,
+				51BC1F9E2C9AAE4900C206E5 /* FlexObjC.mm */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -703,7 +703,7 @@
 				EF0E61752C1A811100DF30F6 /* YGNodeLayout.cpp in Sources */,
 				EF0E61692C1A811100DF30F6 /* Node_Node.cpp in Sources */,
 				EF0E61742C1A811100DF30F6 /* YGNode.cpp in Sources */,
-				51BC1F9F2C9AAE4900C206E5 /* FlexObjC.m in Sources */,
+				51BC1F9F2C9AAE4900C206E5 /* FlexObjC.mm in Sources */,
 				EF0E61722C1A811100DF30F6 /* YGConfig.cpp in Sources */,
 				EF0E61412C1A811100DF30F6 /* Algorithm_CalculateLayout.cpp in Sources */,
 				EF0E61732C1A811100DF30F6 /* YGEnums.cpp in Sources */,
