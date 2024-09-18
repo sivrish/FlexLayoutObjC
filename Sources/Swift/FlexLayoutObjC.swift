@@ -957,12 +957,12 @@ import FlexLayoutYogaKit
         return self
     }
     
-    @discardableResult
-    @objc public func margin(vertical: FPercent, horizontal: FPercent) -> Flex {
-        yoga.marginVertical = YGValue(value: Float(vertical.value), unit: .percent)
-        yoga.marginHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
-        return self
-    }
+//    @discardableResult
+//    @objc public func margin(vertical: FPercent, horizontal: FPercent) -> Flex {
+//        yoga.marginVertical = YGValue(value: Float(vertical.value), unit: .percent)
+//        yoga.marginHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
+//        return self
+//    }
     
     /**
      Set the individually top, horizontal margins and bottom margin.
@@ -975,13 +975,13 @@ import FlexLayoutYogaKit
         return self
     }
     
-    @discardableResult
-    @objc public func margin(top: FPercent, horizontal: FPercent, bottom: FPercent) -> Flex {
-        yoga.marginTop = YGValue(value: Float(top.value), unit: .percent)
-        yoga.marginHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
-        yoga.marginBottom = YGValue(value: Float(bottom.value), unit: .percent)
-        return self
-    }
+//    @discardableResult
+//    @objc public func margin(top: FPercent, horizontal: FPercent, bottom: FPercent) -> Flex {
+//        yoga.marginTop = YGValue(value: Float(top.value), unit: .percent)
+//        yoga.marginHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
+//        yoga.marginBottom = YGValue(value: Float(bottom.value), unit: .percent)
+//        return self
+//    }
 
     /**
      Set the individually top, left, bottom and right margins.
@@ -995,14 +995,14 @@ import FlexLayoutYogaKit
         return self
     }
     
-    @discardableResult
-    @objc public func margin(top: FPercent, left: FPercent, bottom: FPercent, right: FPercent) -> Flex {
-        yoga.marginTop = YGValue(value: Float(top.value), unit: .percent)
-        yoga.marginLeft = YGValue(value: Float(left.value), unit: .percent)
-        yoga.marginBottom = YGValue(value: Float(bottom.value), unit: .percent)
-        yoga.marginRight = YGValue(value: Float(right.value), unit: .percent)
-        return self
-    }
+//    @discardableResult
+//    @objc public func margin(top: FPercent, left: FPercent, bottom: FPercent, right: FPercent) -> Flex {
+//        yoga.marginTop = YGValue(value: Float(top.value), unit: .percent)
+//        yoga.marginLeft = YGValue(value: Float(left.value), unit: .percent)
+//        yoga.marginBottom = YGValue(value: Float(bottom.value), unit: .percent)
+//        yoga.marginRight = YGValue(value: Float(right.value), unit: .percent)
+//        return self
+//    }
 
     //
     // MARK: Padding
@@ -1190,12 +1190,12 @@ import FlexLayoutYogaKit
         return self
     }
 
-    @discardableResult
-    @objc public func padding(vertical: FPercent, horizontal: FPercent) -> Flex {
-        yoga.paddingVertical = YGValue(value: Float(vertical.value), unit: .percent)
-        yoga.paddingHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
-        return self
-    }
+//    @discardableResult
+//    @objc public func padding(vertical: FPercent, horizontal: FPercent) -> Flex {
+//        yoga.paddingVertical = YGValue(value: Float(vertical.value), unit: .percent)
+//        yoga.paddingHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
+//        return self
+//    }
     
     /**
      Set the individually top, horizontal paddings and bottom padding.
@@ -1208,13 +1208,13 @@ import FlexLayoutYogaKit
         return self
     }
 
-    @discardableResult
-    @objc public func padding(top: FPercent, horizontal: FPercent, bottom: FPercent) -> Flex {
-        yoga.paddingTop = YGValue(value: Float(top.value), unit: .percent)
-        yoga.paddingHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
-        yoga.paddingBottom = YGValue(value: Float(bottom.value), unit: .percent)
-        return self
-    }
+//    @discardableResult
+//    @objc public func padding(top: FPercent, horizontal: FPercent, bottom: FPercent) -> Flex {
+//        yoga.paddingTop = YGValue(value: Float(top.value), unit: .percent)
+//        yoga.paddingHorizontal = YGValue(value: Float(horizontal.value), unit: .percent)
+//        yoga.paddingBottom = YGValue(value: Float(bottom.value), unit: .percent)
+//        return self
+//    }
     
     /**
      Set the individually top, left, bottom and right paddings.
@@ -1228,14 +1228,14 @@ import FlexLayoutYogaKit
         return self
     }
 
-    @discardableResult
-    @objc public func padding(top: FPercent, left: FPercent, bottom: FPercent, right: FPercent) -> Flex {
-        yoga.paddingTop = YGValue(value: Float(top.value), unit: .percent)
-        yoga.paddingLeft = YGValue(value: Float(left.value), unit: .percent)
-        yoga.paddingBottom = YGValue(value: Float(bottom.value), unit: .percent)
-        yoga.paddingRight = YGValue(value: Float(right.value), unit: .percent)
-        return self
-    }
+//    @discardableResult
+//    @objc public func padding(top: FPercent, left: FPercent, bottom: FPercent, right: FPercent) -> Flex {
+//        yoga.paddingTop = YGValue(value: Float(top.value), unit: .percent)
+//        yoga.paddingLeft = YGValue(value: Float(left.value), unit: .percent)
+//        yoga.paddingBottom = YGValue(value: Float(bottom.value), unit: .percent)
+//        yoga.paddingRight = YGValue(value: Float(right.value), unit: .percent)
+//        return self
+//    }
     
     //
     // MARK: Gap
