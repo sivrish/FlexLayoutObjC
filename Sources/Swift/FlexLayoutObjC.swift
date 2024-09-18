@@ -36,7 +36,7 @@ import FlexLayoutYogaKit
      Flex items's UIView.
     */
     @objc public private(set) weak var view: UIView?
-    private let yoga: YGLayout
+    @objc private let yoga: YGLayout
     
     /**
      Item natural size, considering only properties of the view itself. Independent of the item frame.

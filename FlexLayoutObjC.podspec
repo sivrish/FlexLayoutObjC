@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = "FlexLayoutObjC"
-  spec.version      = "2.0.10-ObjC"
+  spec.version      = "2.0.10-1"
   spec.summary      = "FlexLayoutObjC"
   spec.homepage     = "https://github.com/sivrish/FlexLayoutObjC.git"
   spec.license      = "MIT license"
