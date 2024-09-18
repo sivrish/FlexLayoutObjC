@@ -15,8 +15,7 @@ YG_EXTERN_C_BEGIN
 
 extern YGValue YGPointValue(CGFloat value) NS_SWIFT_UNAVAILABLE(
     "Use the swift Int and FloatingPoint extensions instead");
-extern YGValue YGPercentValue(CGFloat value) NS_SWIFT_UNAVAILABLE(
-    "Use the swift Int and FloatingPoint extensions instead");
+extern YGValue YGPercentValue(CGFloat value);
 
 YG_EXTERN_C_END
 
