@@ -28,4 +28,8 @@ import FlexLayoutYoga
 //            return YGValueAuto
 //        }
     }
+    
+    @objc func percentOrAuto(_ value: CGFloat) -> YGValue {
+            return YGValue(value: Float(value), unit: .percent)
+    }
 }
