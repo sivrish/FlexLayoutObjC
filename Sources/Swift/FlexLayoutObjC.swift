@@ -409,6 +409,12 @@ import FlexLayoutYogaKit
     }
     
     @discardableResult
+    @objc public func width(percentStr: CGFloat) -> Flex {
+        print("percent string \(percentStr) %")
+        return self
+    }
+    
+    @discardableResult
     private func width(_ percent: FPercent) -> Flex {
         yoga.width = YGValue(value: Float(percent.value), unit: YGUnit.percent)
         return self
